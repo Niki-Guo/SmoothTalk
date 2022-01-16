@@ -299,7 +299,8 @@ $('#stop-button').click(function () {
 });
 
 $('#reset-button').click(function () {
-    transcription = '';
+    document.getElementById("totalScore").innerHTML = " ";
+    transcription = ''; 
     filler_count = 0;
     wordCount = 0;
     document.getElementById("transcript").innerHTML = transcription;
