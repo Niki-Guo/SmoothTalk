@@ -61,8 +61,7 @@
                 <div class="tm-section-1-l">
                     
                     <div class="bg-light rounded-3">
-                        <textarea id="transcript" placeholder="Press Start and talk!" rows="25" cols ="90"
-                        readonly="readonly"></textarea>
+                        <div id="transcript" style="height: 500px; width:100%; clear:both;"></div>
                     </div>
 
                     <button id="start-button" class="fas fa-microphone"> Start</button>
@@ -74,9 +73,9 @@
 
                 <article class="tm-section-1-r bg-light">
                     <h2 class="tm-mb-2 bg-light">Analysis of your Speech here:</h2>
-                    <p>um:</p>
-                    <p>uh: </p>
-                    <p>like: </p>
+                    <p>um:</p><span id="um">0</span>
+                    <p>uh: </p><span id="uh">0</span>
+                    <p>like: </p><span id="like">0</span>
                     <p>umm: </p>
                     <p>uhh: </p>
                     <p>so: </p>
