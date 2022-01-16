@@ -29,6 +29,7 @@ $(document).ready(function () {
         // maintain enabled/distabled state for the start and stop buttons
         toggleStartStop();
     }
+
 });
 
 $('#start-button').click(function () {
@@ -200,12 +201,11 @@ let handleEventStreamMessage = function (messageJson) {
               "<span style='color:red'>" + word12 + "</span>"
             );
     
-          document.getElementById("transcript").innerHTML =
-            transcription + wordContent;
+            $('#transcript').html(transcription + wordContent);
             if (!results[0].IsPartial) {
                 //scroll the textarea down
-                document.getElementById("transcript").innerHTML =
-                transcription + wordContent;
+                $('#transcript').html(transcription + wordContent);
+                $('#transcript').scrollTop($('#transcript')[0].scrollHeight);
                 transcription += wordContent;
                 raw += transcript + " "
 
@@ -227,24 +227,29 @@ let handleEventStreamMessage = function (messageJson) {
                 let you_know_count = (transcription.match(/you know/gi) || []).length
                 $('#you_know').text(you_know_count)
 
+                let i_mean_count = (transcription.match(/i mean/gi) || []).length
+                $('#i_mean').text(i_mean_count)
+
                 let actually_count = (transcription.match(/actually/gi) || []).length
                 $('#actually').text(actually_count)
 
                 let well_count = (transcription.match(/well/gi) || []).length
                 $('#well').text(well_count)
 
-                let right_count = (transcription.match(/right/gi) || []).length
-                $('#right').text(right_count)
-
                 let basically_count = (transcription.match(/basically/gi) || []).length
                 $('#basically').text(basically_count)
-
-                let i_mean_count = (transcription.match(/i mean/gi) || []).length
-                $('#i_mean').text(i_mean_count)
+                
+                let right_count = (transcription.match(/right/gi) || []).length
+                $('#right').text(right_count)
 
                 filler_count = um_count + uh_count + like_count + ah_count + hm_count + you_know_count + i_mean_count +
                 basically_count + right_count + well_count + actually_count
                 $('#filler_count').text(filler_count)
+
+                // // generate Chart live
+                // let data = [um_count, uh_count, like_count, ah_count, hm_count, you_know_count, i_mean_count, actually_count, well_count, basically_count, right_count]
+                // myChart.data.datasets.data = data
+                // myChart.update()
 
                 // let actually_count = (transcription.match(/actually/gi) || []).length
                 // $('#actually').text(actually_count)
@@ -259,6 +264,38 @@ let handleEventStreamMessage = function (messageJson) {
     }
 }
 
+
+// function generateChart() {
+//     const ctx = document.getElementById('myChart').getContext('2d');
+//     let labels = ['um', 'uh', 'like', 'ah', 'hm', 'you know', 'I mean', 'actually', 'well', 'basically', 'right']
+//     myChart = new Chart(ctx, {
+//         type: 'pie',
+//         data: {
+//             labels: labels,
+//             datasets: [{
+//                 label: '# of Filler Words',
+//                 data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+//                 backgroundColor: [
+//                     'rgba(255, 99, 132, 0.2)',
+//                     'rgba(54, 162, 235, 0.2)',
+//                     'rgba(255, 206, 86, 0.2)',
+//                     'rgba(75, 192, 192, 0.2)',
+//                     'rgba(153, 102, 255, 0.2)',
+//                     'rgba(255, 159, 64, 0.2)'
+//                 ],
+//                 borderWidth: 1
+//             }]
+//         },
+//         // options: {
+//         //     scales: {
+//         //         y: {
+//         //             beginAtZero: true
+//         //         }
+//         //     }
+//         // }
+//     });
+// }
+
 let closeSocket = function () {
     if (socket.OPEN) {
         micStream.stop();
@@ -272,22 +309,22 @@ let closeSocket = function () {
 }
 
 var totalCount = function totalCount() {
-    console.log(raw.split(" "));
     wordCount = raw.split(" ").length - 1; // Compensate for empty space
-  
-    document.getElementById("wordCount").innerHTML = wordCount;
+    $('#wordCount').text(wordCount);
   }
 
 var totalScore = function totalScore() {
     score = filler_count / wordCount;
+    let roundedScore = score.toFixed(2)
+    $('#totalScore').text(roundedScore);
     if (score < 0.05) {
-        document.getElementById("totalScore").innerHTML = "Excellent!";
+        $('#feedback').text("Excellent!");
     } else if (0.05 < score < 0.1) {
-        document.getElementById("totalScore").innerHTML = "Great Job!";
+        $('#feedback').text("Great Job!");
     } else if (0.1 < score < 0.2) {
-        document.getElementById("totalScore").innerHTML = "Good Job!";
+        $('#feedback').text("Good Job!");
     } else {
-        document.getElementById("totalScore").innerHTML = "Needs improvement...";
+        $('#feedback').text("Needs improvement...");
     }
 }
 
@@ -299,13 +336,14 @@ $('#stop-button').click(function () {
 });
 
 $('#reset-button').click(function () {
-    document.getElementById("totalScore").innerHTML = " ";
+    $('#totalScore').text('');
     transcription = ''; 
     filler_count = 0;
     wordCount = 0;
-    document.getElementById("transcript").innerHTML = transcription;
+    $('#feedback').text('');
+    $('#transcript').html(transcription);
     $('#filler_count').text(filler_count)
-    document.getElementById("wordCount").innerHTML = wordCount;
+    $('#wordCount').text(wordCount);
     let um_count = (transcription.match(/um/gi) || []).length
     $('#um').text(um_count)
 
