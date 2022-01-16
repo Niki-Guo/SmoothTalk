@@ -130,21 +130,83 @@ let handleEventStreamMessage = function (messageJson) {
 
     if (results.length > 0) {
         if (results[0].Alternatives.length > 0) {
-            let transcript = results[0].Alternatives[0].Transcript;
-
-            // fix encoding for accented characters
-            transcript = decodeURIComponent(escape(transcript));
-            console.log(transcript)
-
-            // update the textarea with the latest result
-            $('#transcript').html(transcription + transcript + "\n");
-
-            // if this transcript segment is final, add it to the overall transcription
+          var transcript = results[0].Alternatives[0].Transcript; // fix encoding for accented characters
+    
+          transcript = decodeURIComponent(escape(transcript)); // update the textarea with the latest result
+          // console.log(transcript);
+          var word1 = "actually";
+          var word2 = "like";
+          var word3 = "um";
+          var word4 = "uh";
+          var word5 = " ah";
+          var word6 = "i mean";
+          var word7 = "hm";
+          var word8 = "hmm";
+          var word9 = "you know";
+          var word10 = "basically";
+          var word11 = "right";
+          var word12 = "well";
+    
+          var wordContent;
+    
+          wordContent = transcript
+            .toLowerCase()
+            .replaceAll(
+              word1,
+              "<span style='color:red'>" + word1 + "</span>"
+            )
+            .replaceAll(
+              word2,
+              "<span style='color:red'>" + word2 + "</span>"
+            )
+            .replaceAll(
+              word3,
+              "<span style='color:red'>" + word3 + "</span>"
+            )
+            .replaceAll(
+              word4,
+              "<span style='color:red'>" + word4 + "</span>"
+            )
+            .replaceAll(
+              word5,
+              "<span style='color:red'> " + word5 + "</span>"
+            )
+            .replaceAll(
+              word6,
+              "<span style='color:red'>" + word6 + "</span>"
+            )
+            .replaceAll(
+              word7,
+              "<span style='color:red'>" + word7 + "</span>"
+            )
+            .replaceAll(
+              word8,
+              "<span style='color:red'>" + word8 + "</span>"
+            )
+            .replaceAll(
+              word9,
+              "<span style='color:red'>" + word9 + "</span>"
+            )
+            .replaceAll(
+              word10,
+              "<span style='color:red'>" + word10 + "</span>"
+            )
+            .replaceAll(
+              word11,
+              "<span style='color:red'>" + word11 + "</span>"
+            )
+            .replaceAll(
+              word12,
+              "<span style='color:red'>" + word12 + "</span>"
+            );
+    
+          document.getElementById("transcript").innerHTML =
+            transcription + wordContent;
             if (!results[0].IsPartial) {
                 //scroll the textarea down
-                $('#transcript').scrollTop($('#transcript')[0].scrollHeight);
-
-                transcription += transcript + "\n";
+                document.getElementById("transcript").innerHTML =
+                transcription + wordContent;
+              transcription += wordContent;
 
                 let um_count = (transcription.match(/um/gi) || []).length
                 $('#um').text(um_count)
@@ -194,9 +256,16 @@ let closeSocket = function () {
     }
 }
 
+var totalCount = function totalCount() {
+    var wordCount = transcription.split(" ").length;
+  
+    document.getElementById("wordCount").innerHTML = wordCount;
+  }
+
 $('#stop-button').click(function () {
     closeSocket();
     toggleStartStop();
+    totalCount();
 });
 
 $('#reset-button').click(function () {
