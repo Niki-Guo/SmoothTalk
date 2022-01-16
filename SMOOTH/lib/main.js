@@ -11,6 +11,7 @@ let languageCode;
 let region;
 let sampleRate;
 let transcription = "";
+let raw = "";
 let socket;
 let micStream;
 let socketError = false;
@@ -34,7 +35,6 @@ $('#start-button').click(function () {
     // set the language and region from the dropdowns
     setLanguage();
     setRegion();
-    console.log("Start button clicked")
     // first we get the microphone input from the browser (as a promise)...
     window.navigator.mediaDevices.getUserMedia({
             video: false,
@@ -133,6 +133,7 @@ let handleEventStreamMessage = function (messageJson) {
           var transcript = results[0].Alternatives[0].Transcript; // fix encoding for accented characters
     
           transcript = decodeURIComponent(escape(transcript)); // update the textarea with the latest result
+          
           // console.log(transcript);
           var word1 = "actually";
           var word2 = "like";
@@ -206,7 +207,8 @@ let handleEventStreamMessage = function (messageJson) {
                 //scroll the textarea down
                 document.getElementById("transcript").innerHTML =
                 transcription + wordContent;
-              transcription += wordContent;
+                transcription += wordContent;
+                raw += transcript + " "
 
                 let um_count = (transcription.match(/um/gi) || []).length
                 $('#um').text(um_count)
@@ -217,20 +219,17 @@ let handleEventStreamMessage = function (messageJson) {
                 let like_count = (transcription.match(/like/gi) || []).length
                 $('#like').text(like_count)
 
-                // let ah_count = (transcription.match(/ah/gi) || []).length
-                // $('#ah').text(ah_count)
+                let ah_count = (transcription.match(/ah/gi) || []).length
+                $('#ah').text(ah_count)
 
-                // let so_count = (transcription.match(/so/gi) || []).length
-                // $('#so').text(so_count)
+                let hm_count = (transcription.match(/hm/gi) || []).length
+                $('#hm').text(hm_count)
 
-                // let er_count = (transcription.match(/er/gi) || []).length
-                // $('#er').text(er_count)
+                let you_know_count = (transcription.match(/you know/gi) || []).length
+                $('#you_know').text(you_know_count)
 
-                // let hm_count = (transcription.match(/hm/gi) || []).length
-                // $('#hm').text(hm_count)
-
-                // let you_know_count = (transcription.match(/you know/gi) || []).length
-                // $('#you_know').text(you_know_count)
+                let filler_count = um_count + uh_count + like_count + ah_count + hm_count + you_know_count
+                $('#filler_count').text(filler_count)
 
                 // let actually_count = (transcription.match(/actually/gi) || []).length
                 // $('#actually').text(actually_count)
@@ -253,11 +252,13 @@ let closeSocket = function () {
         let emptyMessage = getAudioEventMessage(Buffer.from(new Buffer([])));
         let emptyBuffer = eventStreamMarshaller.marshall(emptyMessage);
         socket.send(emptyBuffer);
+        socket.close();
     }
 }
 
 var totalCount = function totalCount() {
-    var wordCount = transcription.split(" ").length;
+    console.log(raw.split(" "));
+    var wordCount = raw.split(" ").length - 1; // Compensate for empty space
   
     document.getElementById("wordCount").innerHTML = wordCount;
   }

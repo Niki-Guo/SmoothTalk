@@ -10,7 +10,7 @@ const express = require('express');
 const proxy = require('http-proxy-middleware');
 const v4 = require('./lib/aws-signature-v4'); // to generate our pre-signed URL
 
-let region = 'us-west-2';
+let region = 'us-west-1';
 let languageCode = 'en-US';
 let sampleRate = 44100;
 
