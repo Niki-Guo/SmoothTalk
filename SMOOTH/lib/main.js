@@ -12,10 +12,13 @@ let region;
 let sampleRate;
 let transcription = "";
 let raw = "";
+let score = 0;
 let socket;
 let micStream;
 let socketError = false;
 let transcribeException = false;
+let filler_count = 0;
+let wordCount = 0;
 
 $(document).ready(function () {
     // check to see if the browser allows mic access
@@ -142,7 +145,7 @@ let handleEventStreamMessage = function (messageJson) {
           var word5 = " ah";
           var word6 = "i mean";
           var word7 = "hm";
-          var word8 = "hmm";
+          
           var word9 = "you know";
           var word10 = "basically";
           var word11 = "right";
@@ -179,10 +182,6 @@ let handleEventStreamMessage = function (messageJson) {
             .replaceAll(
               word7,
               "<span style='color:red'>" + word7 + "</span>"
-            )
-            .replaceAll(
-              word8,
-              "<span style='color:red'>" + word8 + "</span>"
             )
             .replaceAll(
               word9,
@@ -228,7 +227,23 @@ let handleEventStreamMessage = function (messageJson) {
                 let you_know_count = (transcription.match(/you know/gi) || []).length
                 $('#you_know').text(you_know_count)
 
-                let filler_count = um_count + uh_count + like_count + ah_count + hm_count + you_know_count
+                let actually_count = (transcription.match(/actually/gi) || []).length
+                $('#actually').text(actually_count)
+
+                let well_count = (transcription.match(/well/gi) || []).length
+                $('#well').text(well_count)
+
+                let right_count = (transcription.match(/right/gi) || []).length
+                $('#right').text(right_count)
+
+                let basically_count = (transcription.match(/basically/gi) || []).length
+                $('#basically').text(basically_count)
+
+                let i_mean_count = (transcription.match(/i mean/gi) || []).length
+                $('#i_mean').text(i_mean_count)
+
+                filler_count = um_count + uh_count + like_count + ah_count + hm_count + you_know_count + i_mean_count +
+                basically_count + right_count + well_count + actually_count
                 $('#filler_count').text(filler_count)
 
                 // let actually_count = (transcription.match(/actually/gi) || []).length
@@ -258,20 +273,70 @@ let closeSocket = function () {
 
 var totalCount = function totalCount() {
     console.log(raw.split(" "));
-    var wordCount = raw.split(" ").length - 1; // Compensate for empty space
+    wordCount = raw.split(" ").length - 1; // Compensate for empty space
   
     document.getElementById("wordCount").innerHTML = wordCount;
   }
+
+var totalScore = function totalScore() {
+    score = filler_count / wordCount;
+    if (score < 0.05) {
+        document.getElementById("totalScore").innerHTML = "Excellent!";
+    } else if (0.05 < score < 0.1) {
+        document.getElementById("totalScore").innerHTML = "Great Job!";
+    } else if (0.1 < score < 0.2) {
+        document.getElementById("totalScore").innerHTML = "Good Job!";
+    } else {
+        document.getElementById("totalScore").innerHTML = "Needs improvement...";
+    }
+}
 
 $('#stop-button').click(function () {
     closeSocket();
     toggleStartStop();
     totalCount();
+    totalScore();
 });
 
 $('#reset-button').click(function () {
-    $('#transcript').val('');
     transcription = '';
+    filler_count = 0;
+    wordCount = 0;
+    document.getElementById("transcript").innerHTML = transcription;
+    $('#filler_count').text(filler_count)
+    document.getElementById("wordCount").innerHTML = wordCount;
+    let um_count = (transcription.match(/um/gi) || []).length
+    $('#um').text(um_count)
+
+    let uh_count = (transcription.match(/uh/gi) || []).length
+    $('#uh').text(uh_count)
+
+    let like_count = (transcription.match(/like/gi) || []).length
+    $('#like').text(like_count)
+
+    let ah_count = (transcription.match(/ah/gi) || []).length
+    $('#ah').text(ah_count)
+
+    let hm_count = (transcription.match(/hm/gi) || []).length
+    $('#hm').text(hm_count)
+
+    let you_know_count = (transcription.match(/you know/gi) || []).length
+    $('#you_know').text(you_know_count)
+
+    let actually_count = (transcription.match(/um/gi) || []).length
+    $('#actually').text(actually_count)
+
+    let well_count = (transcription.match(/um/gi) || []).length
+    $('#well').text(well_count)
+
+    let right_count = (transcription.match(/um/gi) || []).length
+    $('#right').text(right_count)
+
+    let basically_count = (transcription.match(/um/gi) || []).length
+    $('#basically').text(basically_count)
+
+    let i_mean_count = (transcription.match(/um/gi) || []).length
+    $('#i_mean').text(i_mean_count)
 });
 
 function toggleStartStop(disableStart = false) {
