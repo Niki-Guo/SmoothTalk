@@ -34,7 +34,7 @@ $('#start-button').click(function () {
     // set the language and region from the dropdowns
     setLanguage();
     setRegion();
-
+    console.log("Start button clicked")
     // first we get the microphone input from the browser (as a promise)...
     window.navigator.mediaDevices.getUserMedia({
             video: false,
@@ -78,18 +78,14 @@ let streamAudioToWebSocket = function (userMediaStream) {
 }
 
 function setLanguage() {
-    languageCode = $('#language').find(':selected').val();
-    if (languageCode == "en-US" || languageCode == "es-US")
-        sampleRate = 44100;
-    else
-        sampleRate = 8000;
-
+    languageCode = "en-US";
+    sampleRate = 44100;
     //send the value to the server
     $.get("/language/" + languageCode);
 }
 
 function setRegion() {
-    region = $('#region').find(':selected').val();
+    region = "us-west-1"
 
     //send the value to the server
     $.get("/region/" + region);
@@ -148,6 +144,7 @@ let handleEventStreamMessage = function (messageJson) {
                 $('#transcript').scrollTop($('#transcript')[0].scrollHeight);
 
                 transcription += transcript + "\n";
+                console.log(transcription)
             }
         }
     }

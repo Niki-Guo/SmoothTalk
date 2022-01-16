@@ -10,9 +10,9 @@ const express = require('express');
 const proxy = require('http-proxy-middleware');
 const v4 = require('./lib/aws-signature-v4'); // to generate our pre-signed URL
 
-let region = 'us-west-1';
+let region = 'us-west-2';
 let languageCode = 'en-US';
-let sampleRate;
+let sampleRate = 44100;
 
 let proxyRouter = function (req) {
     return createPresignedUrl();
@@ -34,9 +34,7 @@ let wsProxy = proxy(proxyFilter, {
     router: proxyRouter, //generate a fresh pre-signed URL for each connection
 
     onError: function(err, req, res) {
-        res.writeHead(500, {
-            'Content-Type': 'text/plain'
-        });
+        console.log(err)
     
         res.end(err);
     }
@@ -44,29 +42,34 @@ let wsProxy = proxy(proxyFilter, {
 
 const app = express();
 app.use(express.static('public'));
+app.use('/css',express.static(__dirname + '/css'));
+app.use('/fontawesome',express.static(__dirname + '/fontawesome'));
+app.use('/img',express.static(__dirname + '/img'));
+app.use('/js',express.static(__dirname + '/js'));
+app.use('/lib',express.static(__dirname + '/lib'));
+
 app.use(wsProxy); // add the proxy to express
 
 const server = app.listen(process.env.PORT || 5000);
 server.on('upgrade', wsProxy.upgrade);
 
 app.get('/', function (request, response) {
+    console.log(__dirname + 'index.html')
     response.sendFile(__dirname + '/index.html');
 });
 
 app.get('/stop', function (request, response) {});
 
 app.get('/region/:region', function (request, response) {
-    region = request.params.region;
+    region = 'us-west-2';
     response.sendStatus(200);
 });
 
 app.get('/language/:languageCode', function (request, response) {
-    languageCode = request.params.languageCode;
-    
-    if(languageCode=="en-US" || languageCode=="es-US")
-        sampleRate = 44100
-    else
-        sampleRate = 8000;
+
+    languageCode=="en-US"
+    sampleRate = 44100
+
 
     response.sendStatus(200);
 });
