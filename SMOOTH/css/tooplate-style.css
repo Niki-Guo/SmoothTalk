@@ -12,9 +12,13 @@ ul {
 
 p {
   font-size: 13px;
-  color: #ffbe0b;
+  color: #ffc400;
   line-height: 22px;
   margin: 0px;
+}
+
+h2{
+  color: #ffc400;
 }
 
 .white-border-button a {
@@ -147,7 +151,7 @@ p {
 
 .banner .left-content {
   background-color: #414141;
-  height: 800px;
+  height: 100vh;
   display: block;
 }
 
@@ -170,7 +174,7 @@ p {
 }
 
 .banner .center-image {
-  height: 800px;
+  height: 100vh;
   width: 100%;
   display: block;
   background: #414141;
@@ -194,16 +198,21 @@ p {
 
 .banner .right-content {
   background-color: #414141;
-  height: 800px;
+  height: 100vh;
   display: grid;
   grid-template-areas: "top"
-  "counter"
+  "middle"
   "bottom";
-  text-align: right;
+  text-align: left;
+}
+
+.counter{
+  grid-area: middle;
+  align-items: center;
 }
 
 .banner .right-content .owl-theme {
-  position: absolute;
+  position: center;
   bottom: 0;
   padding: 0px 10%;
   transform: translate(0, -50%) 
@@ -238,7 +247,7 @@ p {
 .banner .right-content .item p {
   font-size: 16px;
   font-style: italic;
-  color: #3a3a3a;
+  color: #ffc400;
   line-height: 26px;
 }
 
