@@ -1,0 +1,257 @@
+html, body {
+  height: 100%;
+  background-color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p {
+  font-size: 13px;
+  color: #ffbe0b;
+  line-height: 22px;
+  margin: 0px;
+}
+
+.white-border-button a {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  padding: 12px 20px;
+  border: 1px solid #fff;
+  border-radius: 24px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.white-border-button a:hover {
+  background-color: #fff;
+  color: #517df0;
+}
+
+.blue-border-button a {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #517df0;
+  padding: 12px 20px;
+  border: 1px solid #517df0;
+  border-radius: 24px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+.blue-border-button a:hover {
+  background-color: #517df0;
+  color: #fff;
+}
+
+.blue-button a {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  padding: 12px 20px;
+  background-color: #517df0;
+  border-radius: 24px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+}
+
+.blue-button a:hover {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+
+#header {
+  width: 100%;
+  overflow: visible;
+  position: absolute;
+  z-index: 10;
+  background-color: transparent;
+}
+
+.inner-header #header {
+  background-color: #517df0;
+  height: 110px;
+  position: relative;
+}
+
+.inner-header #header .menu {
+  margin-top: 18px;
+  background-color: #FFF;
+}
+
+#header .col-md-12 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#header .logo {
+  float: left;
+  margin-left: 15px;
+  z-index: 100;
+}
+
+#header .logo img {
+  width: 15%;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+/* Page Heading Style */
+
+.heading-page {
+  background-color: #343e55;
+  padding: 100px 0px;
+  text-align: left;
+} 
+
+.heading-page h2 {
+  margin-top: 0px;
+  font-size: 28px;
+  color: #fff;
+}
+
+.heading-page .line-dec {
+  width: 60px;
+  height: 3px;
+  background-color: #517df0;
+}
+
+/* Banner Style */
+
+.banner .container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.banner .col-md-2 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.banner .col-md-5 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.banner .left-content {
+  background-color: #414141;
+  height: 800px;
+  display: block;
+}
+
+.banner .left-content .inside-content {
+  position: absolute;
+  top: 50%;
+  padding: 0px 12.5%;
+  transform: translate(0, -50%) 
+}
+
+.banner .left-content .inside-content h4 {
+  font-size: 18px;
+  color: #fff;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.banner .left-content .inside-content .white-border-button {
+  margin-top: 30px;
+}
+
+.banner .center-image {
+  height: 800px;
+  width: 100%;
+  display: block;
+  background: #414141;
+  background: -moz-linear-gradient(left, #414141 100%);
+  background: -webkit-linear-gradient(left, #414141 100%); 
+  background: linear-gradient(to right, #414141 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#517df0', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
+  }
+
+.banner .center-image .inside-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) 
+}
+
+.banner .center-image .inside-content img {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner .right-content {
+  background-color: #414141;
+  height: 800px;
+  display: grid;
+  grid-template-areas: "top"
+  "counter"
+  "bottom";
+  text-align: right;
+}
+
+.banner .right-content .owl-theme {
+  position: absolute;
+  bottom: 0;
+  padding: 0px 10%;
+  transform: translate(0, -50%) 
+}
+
+.banner .right-content .owl-dots {
+  margin-top: 14px;
+  text-align: right;
+}
+
+.banner .right-content .owl-dots .owl-dot span  {
+  width: 10px;
+  height: 10px;
+  background-color: #cdcdcd!important;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+
+.banner .right-content .owl-dots .active span {
+  background-color: #517df0!important;
+}
+
+.banner .right-content .owl-dots button {
+  outline: none;
+}
+
+.banner .right-content .item {
+  margin-right: 2px;
+}
+
+.banner .right-content .item p {
+  font-size: 16px;
+  font-style: italic;
+  color: #3a3a3a;
+  line-height: 26px;
+}
+
+/* Footer Style */
+
+footer {
+  text-align: left;
+  padding: 100px 0px;
+  background-color: #414141;
+}
+
+
+.sub-footer {
+  background-color: #414141;
+  text-align: center;
+}
