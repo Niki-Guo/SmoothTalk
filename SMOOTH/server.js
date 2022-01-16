@@ -50,7 +50,7 @@ app.use('/lib',express.static(__dirname + '/lib'));
 
 app.use(wsProxy); // add the proxy to express
 
-const server = app.listen(process.env.PORT || 5001);
+const server = app.listen(process.env.PORT || 5000);
 server.on('upgrade', wsProxy.upgrade);
 
 app.get('/', function (request, response) {
