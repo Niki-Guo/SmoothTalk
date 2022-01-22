@@ -30,7 +30,8 @@ body {
 }
 
 #logo {
-    height: 52px;
+    width: auto;
+    height: 100%;
 }
 
 #github {

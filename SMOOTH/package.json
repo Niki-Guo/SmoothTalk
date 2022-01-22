@@ -33,6 +33,7 @@
     "http-proxy-middleware": "^0.19.1",
     "local-web-server": "^3.0.6",
     "microphone-stream": "^5.0.1",
+    "node": "^17.3.1",
     "query-string": "^6.8.1"
   },
   "devDependencies": {

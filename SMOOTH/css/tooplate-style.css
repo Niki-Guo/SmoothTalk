@@ -7,7 +7,7 @@ html, body {
   background-color: #fff;
   color: white;
   font-family: 'Inconsolata', monospace;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 ul {
@@ -17,7 +17,7 @@ ul {
 }
 
 p {
-  font-size: 13px;
+  font-size: 16px;
   color: #ffc400;
   line-height: 22px;
   margin: 0px;
@@ -28,7 +28,7 @@ h2{
 }
 
 .white-border-button a {
-  font-size: 13px;
+  font-size: 16px;
   text-transform: uppercase;
   font-weight: 700;
   color: #FFC400;
@@ -51,7 +51,7 @@ button:hover {
 
 #header {
   width: 100%;
-  overflow: visible;
+  overflow:hidden;
   position: absolute;
   z-index: 10;
   background-color: transparent;
@@ -59,30 +59,31 @@ button:hover {
 
 .inner-header #header {
   background-color: #517df0;
-  height: 110px;
+  height: auto;
   position: relative;
 }
 
 .inner-header #header .menu {
-  margin-top: 18px;
+  margin-top: 0px;
   background-color: #FFF;
 }
 
-#header .col-md-12 {
+#header  {
   padding-left: 0px;
   padding-right: 0px;
+  align-items: top;
 }
 
 #header .logo {
   float: left;
-  margin-left: 20px;
+  margin-left: 40px;
   z-index: 100;
 }
 
 #header .logo img {
-  width: 23%;
+  width: 20%;
   overflow: hidden;
-  margin-top: -20px;
+  margin-top: 0;
 }
 
 /* Page Heading Style */
@@ -95,7 +96,7 @@ button:hover {
 
 .heading-page h2 {
   margin-top: 0px;
-  font-size: 28px;
+  font-size: 22px;
   color: #fff;
 }
 
@@ -131,8 +132,9 @@ button:hover {
 
 .banner .left-content .inside-content {
   position: absolute;
-  top: 50%;
-  padding: 0px 12.5%;
+  width: 100%;
+  top: 60%;
+  padding: 0px 5%;
   transform: translate(0, -50%) 
 }
 
@@ -176,8 +178,11 @@ button:hover {
   display: grid;
   grid-template-areas: "top"
   "middle"
+  "top-middle"
+  "mid-bottom"
   "bottom";
   text-align: left;
+  padding-bottom: 10px;
 }
 
 .counter{
@@ -220,7 +225,7 @@ button:hover {
 }
 
 .banner .right-content .item p {
-  font-size: 16px;
+  font-size: 13px;
   font-style: italic;
   color: #ffc400;
   line-height: 26px;

@@ -151,6 +151,9 @@ let handleEventStreamMessage = function (messageJson) {
           var word10 = "basically";
           var word11 = "right";
           var word12 = "well";
+          var word13 = "so";
+          var word14 = "but";
+          var word15 = "ok";
     
           var wordContent;
     
@@ -199,7 +202,19 @@ let handleEventStreamMessage = function (messageJson) {
             .replaceAll(
               word12,
               "<span style='color:red'>" + word12 + "</span>"
-            );
+            )
+            .replaceAll(
+              word13,
+              "<span style='color:red'>" + word13 + "</span>"
+            )
+            .replaceAll(
+                word14,
+                "<span style='color:red'>" + word14 + "</span>"
+              )
+            .replaceAll(
+                word15,
+                "<span style='color:red'>" + word15 + "</span>"
+              );
     
             $('#transcript').html(transcription + wordContent);
             if (!results[0].IsPartial) {
@@ -242,8 +257,17 @@ let handleEventStreamMessage = function (messageJson) {
                 let right_count = (transcription.match(/right/gi) || []).length
                 $('#right').text(right_count)
 
+                let ok_count = (transcription.match(/ok/gi) || []).length
+                $('#ok').text(ok_count)
+
+                let but_count = (transcription.match(/but/gi) || []).length
+                $('#but').text(but_count)
+
+                let so_count = (transcription.match(/so/gi) || []).length
+                $('#so').text(so_count)
+
                 filler_count = um_count + uh_count + like_count + ah_count + hm_count + you_know_count + i_mean_count +
-                basically_count + right_count + well_count + actually_count
+                basically_count + right_count + well_count + actually_count + ok_count + but_count + so_count
                 $('#filler_count').text(filler_count)
 
                 // // generate Chart live
@@ -362,20 +386,31 @@ $('#reset-button').click(function () {
     let you_know_count = (transcription.match(/you know/gi) || []).length
     $('#you_know').text(you_know_count)
 
-    let actually_count = (transcription.match(/um/gi) || []).length
+    let actually_count = (transcription.match(/actually/gi) || []).length
     $('#actually').text(actually_count)
 
-    let well_count = (transcription.match(/um/gi) || []).length
+    let well_count = (transcription.match(/well/gi) || []).length
     $('#well').text(well_count)
 
-    let right_count = (transcription.match(/um/gi) || []).length
+    let right_count = (transcription.match(/right/gi) || []).length
     $('#right').text(right_count)
 
-    let basically_count = (transcription.match(/um/gi) || []).length
+    let basically_count = (transcription.match(/bascially/gi) || []).length
     $('#basically').text(basically_count)
 
-    let i_mean_count = (transcription.match(/um/gi) || []).length
+    let i_mean_count = (transcription.match(/i mean/gi) || []).length
     $('#i_mean').text(i_mean_count)
+
+    let ok_count = (transcription.match(/ok/gi) || []).length
+    $('#ok').text(ok_count)
+
+    let so_count = (transcription.match(/so/gi) || []).length
+    $('#so').text(so_count)
+
+    let but_count = (transcription.match(/but/gi) || []).length
+    $('#but').text(but_count)
+
+
 });
 
 function toggleStartStop(disableStart = false) {
